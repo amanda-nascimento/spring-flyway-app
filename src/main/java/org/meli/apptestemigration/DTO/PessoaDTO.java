@@ -2,7 +2,7 @@ package org.meli.apptestemigration.DTO;
 
 public class PessoaDTO {
     private String nome;
-    private int idade;
+    private Integer idade;
 
 
     public String getNome() {
@@ -13,11 +13,11 @@ public class PessoaDTO {
         this.nome = nome;
     }
 
-    public int getIdade() {
+    public Integer getIdade() {
         return idade;
     }
 
-    public void setIdade(int idade) {
+    public void setIdade(Integer idade) {
         this.idade = idade;
     }
 }

@@ -12,7 +12,7 @@ public class Pessoa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private int idade;
+    private Integer idade;
 
     public Long getId() {
         return id;
@@ -26,11 +26,11 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public int getIdade() {
+    public Integer getIdade() {
         return idade;
     }
 
-    public void setIdade(int idade) {
+    public void setIdade(Integer idade) {
         this.idade = idade;
     }
 

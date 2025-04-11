@@ -4,6 +4,7 @@ import org.meli.apptestemigration.DTO.PessoaDTO;
 import org.meli.apptestemigration.model.Pessoa;
 import org.meli.apptestemigration.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -57,6 +58,35 @@ public class PessoaService {
         pessoaDTO.setNome(pessoa.getNome());
         pessoaDTO.setIdade(pessoa.getIdade());
         return pessoaDTO;
+    }
+
+    @Scheduled(fixedRate = 30000)
+    public int corrigirNomesDasPessoas() {
+        System.out.println("Executando corrigirNomesDasPessoas");
+        List<Pessoa> pessoas = repository.findAll();
+        int alterados = 0;
+
+        if (pessoas.isEmpty()) {
+            return 0;
+        }
+
+        for (Pessoa p : pessoas) {
+            String nomeOriginal = p.getNome();
+            String nomeCorrigido = formatarNome(nomeOriginal);
+
+            if (!nomeOriginal.equals(nomeCorrigido)) {
+                p.setNome(nomeCorrigido);
+                alterados++;
+            }
+        }
+
+        repository.saveAll(pessoas);
+        return alterados;
+    }
+
+    private String formatarNome(String nome) {
+        if (nome == null || nome.isBlank()) return nome;
+        return nome.substring(0, 1).toUpperCase() + nome.substring(1).toLowerCase();
     }
 
 
